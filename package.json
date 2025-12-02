@@ -1,0 +1,34 @@
+{
+  "name": "biblioteca-api",
+  "version": "1.0.0",
+  "description": "Api para gerenciamento de livros de uma biblioteca",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --runInBand",
+    "test:api": "jest tests/api.books.test.js --runInBand",
+    "test:selenium": "node tests/selenium/cadastro.selenium.test.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaphaMX/biblioteca-api.git"
+  },
+  "author": "RaphaMX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RaphaMX/biblioteca-api/issues"
+  },
+  "homepage": "https://github.com/RaphaMX/biblioteca-api#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.5.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "selenium-webdriver": "^4.38.0",
+    "supertest": "^7.1.4"
+  }
+}

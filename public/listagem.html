@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Livros</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="site">
+        <div class="header">
+            <div class="logo">B</div>
+            <div>
+                <h1 class="title">Biblioteca</h1>
+                <p class="subtitle">Catálogo atualizado</p>
+            </div>
+        </div>
+
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/cadastro.html">Novo</a>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-top:0">Listagem</h2>
+            <ul id="lista"></ul>
+        </div>
+    </div>
+
+    <script>
+        async function carregar() {
+            const res = await fetch('/books');
+            const data = await res.json();
+            const ul = document.getElementById('lista');
+            ul.innerHTML = '';
+            data.forEach(l => {
+                const li = document.createElement('li');
+                li.innerText = `${l.id} — ${l.title} — ${l.author} — ${l.year} — ${l.status}`;
+                ul.appendChild(li);
+            });
+        }
+        carregar();
+    </script>
+</body>
+
+</html>

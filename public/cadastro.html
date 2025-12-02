@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="theme-color" content="#0f4c81">
+</head>
+
+<body>
+    <div class="site">
+        <div class="header">
+            <div class="logo">B</div>
+            <div>
+                <h1 class="title">Biblioteca</h1>
+                <p class="subtitle">Cadastre novos títulos — rápido e fácil</p>
+            </div>
+        </div>
+
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/listagem.html">Listagem</a>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-top:0">Cadastro de Livros</h2>
+            <form id="form">
+                <div class="form-grid">
+                    <label>Título: <input id="titulo" required></label>
+                    <label>Autor: <input id="autor" required></label>
+                    <label>Ano: <input id="ano" type="number" required></label>
+                    <label>Categoria: <input id="categoria"></label>
+                </div>
+                <button type="submit">Salvar</button>
+                <div id="msg"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const body = {
+                title: document.getElementById('titulo').value,
+                author: document.getElementById('autor').value,
+                year: Number(document.getElementById('ano').value),
+                category: document.getElementById('categoria').value
+            };
+            try {
+                const res = await fetch('/books', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                if (res.status === 201) {
+                    const msgEl = document.getElementById('msg');
+                    msgEl.style.color = 'var(--success)';
+                    msgEl.innerText = 'Livro cadastrado com sucesso!';
+                    setTimeout(() => location.href = '/listagem.html', 800);
+                } else {
+                    const err = await res.json();
+                    const msgEl = document.getElementById('msg');
+                    msgEl.style.color = 'crimson';
+                    msgEl.innerText = 'Erro: ' + (err.error || 'unknown');
+                }
+            } catch (err) {
+                const msgEl = document.getElementById('msg');
+                msgEl.style.color = 'crimson';
+                msgEl.innerText = 'Erro: ' + err.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
