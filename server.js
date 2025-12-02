@@ -3,8 +3,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-const repo = require('./repo.memory');
-// const repo = require('./repo.sqlite');
+// const repo = require('./repo.memory');
+const repo = require('./repo.sqlite');
 
 // POST /books
 app.post('/books', async (req, res) => {

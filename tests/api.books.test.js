@@ -4,6 +4,20 @@ const {
     _reset
 } = require('../server');
 
+beforeAll(async () => {
+    server = app.listen(0);
+    await new Promise((res) => {
+        server.once("listening", res);
+    });
+    baseURL = `http://127.0.0.1:${server.address().port}`;
+});
+
+afterAll(async () => {
+    await new Promise((res) => {
+        server.close(res);
+    });
+});
+
 beforeEach(async () => {
     await _reset();
 });

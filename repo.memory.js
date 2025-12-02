@@ -58,7 +58,7 @@ function update(match = {}, patch = {}) {
     if (patch.category) book.category = String(patch.category).trim();
     if (patch.status) book.status = String(patch.status).trim();
 
-    Logger.log(`update: ${book.id}`);
+    Logger.log(`update: ${book.id}, ${book.title}, ${book.status}`);
     return {
         ...book
     };
